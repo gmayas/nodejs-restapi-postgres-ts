@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const router = express_1.Router();
+const user_controller_1 = require("../controllers/user.controller");
+const Validations_1 = require("../libs/Validations");
+router.get('/userVehicles/:id', Validations_1.TokenValidation, user_controller_1.userVehicles);
+router.post('/addVehicle', Validations_1.TokenValidation, user_controller_1.addVehicle);
+router.post('/updateVehicle/:id', Validations_1.TokenValidation, user_controller_1.updateVehicle);
+router.post('/addPosition', user_controller_1.addPosition);
+exports.default = router;
