@@ -13,10 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database/database"));
-var redis = require('redis');
-var JWTR = require('jwt-redis').default;
-var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
 exports.userVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

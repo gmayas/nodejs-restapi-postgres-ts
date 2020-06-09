@@ -2,10 +2,11 @@ import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import  pool  from '../database/database';
 import * as _ from 'lodash';
-var redis = require('redis');
+/*var redis = require('redis');
 var JWTR =  require('jwt-redis').default;
 var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
+var jwt = new JWTR(redisClient);*/
+import jwt from 'jsonwebtoken';
 
 export const userVehicles = async (req: Request, res: Response): Promise<Response> => {
     try{

@@ -22,10 +22,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database/database"));
 const _ = __importStar(require("lodash"));
 const Validations_1 = require("../libs/Validations");
-var redis = require('redis');
-var JWTR = require('jwt-redis').default;
+/*var redis = require('redis');
+var JWTR =  require('jwt-redis').default;
 var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
+var jwt = new JWTR(redisClient);*/
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 exports.signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let emailuserExists;
@@ -45,7 +46,7 @@ exports.signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // insert newUser
         const savedUser = yield database_1.default.query('INSERT INTO users(emailuser, nameuser, passworduser, typeiduser) VALUES ($1, $2, $3, $4);', [newUser.emailuser, newUser.nameuser, newUser.passworduser, newUser.typeiduser]);
         // get token
-        const token = yield jwt.sign({ emailuser: newUser.emailuser }, process.env['TOKEN_SECRET'] || '', {
+        const token = yield jsonwebtoken_1.default.sign({ emailuser: newUser.emailuser }, process.env['TOKEN_SECRET'] || '', {
             expiresIn: 60 * 60 * 24 // Duracion de 24 hrs
         });
         emailuserExists = yield database_1.default.query('SELECT id FROM users WHERE emailuser = $1', [newUser.emailuser]);
@@ -79,7 +80,7 @@ exports.signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json(dataResult);
         }
         // Get Token
-        const token = yield jwt.sign({ emailuser: _.get(dataResult, 'emailuser', '') }, process.env['TOKEN_SECRET'] || '', {
+        const token = yield jsonwebtoken_1.default.sign({ emailuser: _.get(dataResult, 'emailuser', '') }, process.env['TOKEN_SECRET'] || '', {
             expiresIn: 60 * 60 * 24 // Duracion de 24 hrs
         });
         dataResult.token = token;

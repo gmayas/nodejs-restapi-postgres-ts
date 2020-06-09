@@ -3,10 +3,11 @@ import { QueryResult } from 'pg';
 import  pool  from '../database/database';
 import * as _ from 'lodash';
 import {  encrypPassword, validatePassword } from '../libs/Validations'
-var redis = require('redis');
+/*var redis = require('redis');
 var JWTR =  require('jwt-redis').default;
 var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
+var jwt = new JWTR(redisClient);*/
+import jwt from 'jsonwebtoken';
 
 export const signUp = async (req: Request, res: Response): Promise<Response> => {
     try{
