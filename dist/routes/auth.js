@@ -8,6 +8,6 @@ router.post('/signup', auth_controller_1.signUp);
 router.post('/signin', auth_controller_1.signIn);
 router.get('/profile', Validations_1.TokenValidation, auth_controller_1.profile);
 router.post('/newPassword', auth_controller_1.updatePasswordUser);
-router.post('/logout', Validations_1.RemoveToken, auth_controller_1.logOut);
+router.post('/logout', Validations_1.TokenValidation, auth_controller_1.logOut);
 router.get('/tuser', auth_controller_1.getTypeOfUser);
 exports.default = router;

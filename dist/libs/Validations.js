@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//import jwt from 'jsonwebtoken';
-var redis = require('redis');
-var JWTR = require('jwt-redis').default;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+//var redis = require('redis');
+//var JWTR =  require('jwt-redis').default;
 //ES6 import JWTR from 'jwt-redis';
-var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
+//var redisClient = redis.createClient();
+//var jwt = new JWTR(redisClient);
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 exports.TokenValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -25,7 +25,7 @@ exports.TokenValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         console.log('token: ', token);
         if (!token)
             return res.status(401).json('Access Denied');
-        const payload = yield jwt.verify(token, process.env['TOKEN_SECRET'] || '');
+        const payload = yield jsonwebtoken_1.default.verify(token, process.env['TOKEN_SECRET'] || '');
         console.log('payload: ', payload);
         req.emailUser = payload.emailuser; // Se guarda en  req.userId paa que todas las rutas la puedan ver. 
         next();
@@ -35,24 +35,22 @@ exports.TokenValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         res.status(400).send('Invalid Token');
     }
 });
-exports.RemoveToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+/*export const RemoveToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.header('token');
         console.log('token: ', token);
-        if (!token)
-            return res.status(401).json('Access Denied');
-        const payload = yield jwt.verify(token, process.env['TOKEN_SECRET'] || '');
+        if (!token) return res.status(401).json('Access Denied');
+        const payload = await jwt.verify(token, process.env['TOKEN_SECRET'] || '') as IPayload;
         console.log('payload: ', payload);
-        const destroy = yield jwt.destroy(token, process.env['TOKEN_SECRET'] || '');
+        const destroy = await jwt.destroy(token, process.env['TOKEN_SECRET'] || '');
         console.log('destroy: ', destroy);
-        req.emailUser = ''; // Se guarda en  req.userId paa que todas las rutas la puedan ver. 
+        req.emailUser = '';  // Se guarda en  req.userId paa que todas las rutas la puedan ver.
         console.log('req.emailUser: ', req.emailUser);
         next();
-    }
-    catch (e) {
+    } catch (e) {
         res.status(400).send('Invalid Token');
     }
-});
+}*/
 exports.encrypPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const salt = yield bcryptjs_1.default.genSalt(10);

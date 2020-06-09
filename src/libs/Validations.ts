@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
-//import jwt from 'jsonwebtoken';
-var redis = require('redis');
-var JWTR =  require('jwt-redis').default;
+import jwt from 'jsonwebtoken';
+//var redis = require('redis');
+//var JWTR =  require('jwt-redis').default;
 //ES6 import JWTR from 'jwt-redis';
-var redisClient = redis.createClient();
-var jwt = new JWTR(redisClient);
+//var redisClient = redis.createClient();
+//var jwt = new JWTR(redisClient);
 
 import bcrypt from 'bcryptjs';
 
@@ -28,7 +28,7 @@ export const TokenValidation = async (req: Request, res: Response, next: NextFun
     }
 }
 
-export const RemoveToken = async (req: Request, res: Response, next: NextFunction) => {
+/*export const RemoveToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.header('token');
         console.log('token: ', token);
@@ -43,7 +43,7 @@ export const RemoveToken = async (req: Request, res: Response, next: NextFunctio
     } catch (e) {
         res.status(400).send('Invalid Token');
     }
-}
+}*/
 
 export const encrypPassword = async (password: string): Promise<string> => {
    try{
