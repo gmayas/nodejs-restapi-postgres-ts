@@ -137,7 +137,7 @@ export const getTypeOfUser = async (req: Request, res: Response): Promise<Respon
         return res.status(200).json({
             message: 'Query succesfully',
             data: response.rows
-        });
+        });   
      } catch ( e ){
          console.log(e);
          return res.status(500).json({
